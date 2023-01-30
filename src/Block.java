@@ -5,11 +5,13 @@ public class Block {
         this.value = value;
     }
 
-    public char getValue() {
+    public char getValue(){
         return value;
     }
 
     public String toString(){
         return this.getValue() + " ";
     }
+
 }
+
