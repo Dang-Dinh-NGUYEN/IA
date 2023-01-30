@@ -28,8 +28,16 @@ public class Square {
         return neighbors[direction.ordinal()];
     }
 
-    public boolean movable(CardinalDirection direction){
+    public boolean movable(CardinalDirection direction) throws NullPointerException{
         return this.getNeighbor(direction).getBlock() == EmptyBlock.getInstance();
+    }
+
+    public boolean move(CardinalDirection cardinalDirection){
+        if(!this.movable(cardinalDirection))
+            return false;
+        this.getNeighbor(cardinalDirection).put(this.getBlock());
+        this.put(EmptyBlock.getInstance());
+        return true;
     }
 
 }

@@ -33,7 +33,7 @@ public class Grid implements Iterable<Square> {
         return this.squares[row][col];
     }
 
-    public void setSquares(int row, int col, Square square){
+    public void setSquare(int row, int col, Square square){
         this.squares[row][col] = square;
     }
 

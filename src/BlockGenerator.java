@@ -8,7 +8,7 @@ public class BlockGenerator {
 
 
     public BlockGenerator(String filepath, int nbRows, int nbCols) throws FileNotFoundException {
-        Scanner input = new Scanner(new File("C:\\Users\\Dang Dinh NGUYEN\\Documents\\L3_INFO\\S6\\IA\\grilles\\grilles\\taquin_3x3.grid"));
+        Scanner input = new Scanner(new File(filepath));
         input.nextLine();
 
         for (int i = 0; i < nbRows; ++i) {
