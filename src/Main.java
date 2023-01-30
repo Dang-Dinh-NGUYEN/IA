@@ -4,48 +4,56 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        Scanner input = new Scanner (new File("C:\\Users\\vikii\\IdeaProjects\\IA\\grilles\\grilles\\taquin_3x3.grid"));
-
-        // pre-read in the number of rows/columns
-        int nbRows = input.nextInt();
-
-        int nbColumns = 0;
-        for(int i = 0; i < nbRows; i++)
-            if(input.nextLine().length() > nbColumns)
-                nbColumns = input.nextLine().length();
-
-        input.close();
-
-        //declare initial grid and final grid
-        Grid initialGrid = new Grid(nbRows,nbColumns);
-        Grid finalGrid = new Grid(nbRows,nbColumns);
-        BlockGenerator blockGenerator = new BlockGenerator("C:\\Users\\vikii\\IdeaProjects\\IA\\grilles\\grilles\\taquin_3x3.grid",nbRows,nbColumns);
+        Game taquin = new Game("C:\\Users\\Dang Dinh NGUYEN\\Documents\\L3_INFO\\S6\\IA\\grilles\\grilles\\taquin_3x3.grid");
 
         /*
         //blockGenerator test
-        System.out.println(blockGenerator.getFinalBlocks().toString());
-        System.out.println(blockGenerator.getInitialBlocks().toString());
+        System.out.println(taquin.getBlockGenerator().getInitialBlocks().toString());
+        System.out.println(taquin.getBlockGenerator().getFinalBlocks().toString());
          */
 
-        initialGrid.fill(blockGenerator.getInitialBlocks());
-        finalGrid.fill(blockGenerator.getFinalBlocks());
+
+        //neighbors test
+        //System.out.println("initial grid");
+        //taquin.getInitialGrid().PrintGrid();
+        //System.out.println(taquin.getInitialGrid().toString());
+        //System.out.println(taquin.getInitialGrid().findEmptySquare().getBlock().toString());
 
         /*
-        //neighbors test
-        System.out.println("initial grid");
-        for(int i = 0; i < nbRows; i++){
-            for(int j = 0; j < nbColumns; j++){
-                System.out.print(initialGrid.getSquare(i,j).getBlock().toString());
+        System.out.println(taquin.getInitialGrid().findEmptySquare().getNeighbor(CardinalDirection.NORTH).getBlock().getValue());
+        //System.out.println(taquin.getInitialGrid().findEmptySquare().hasNeighbor(CardinalDirection.SOUTH));
+        System.out.println(taquin.getInitialGrid().findEmptySquare().getNeighbor(CardinalDirection.WEST).getBlock().getValue());
+        System.out.println(taquin.getInitialGrid().findEmptySquare().getNeighbor(CardinalDirection.EAST).getBlock().getValue());
+        */
+
+        /*
+        taquin.getInitialGrid().getSquare(1,1).move(CardinalDirection.SOUTH);
+
+        for(int i = 0; i <taquin.getInitialGrid().getNbRows(); i++){
+            for(int j = 0; j < taquin.getInitialGrid().getNbCols(); j++){
+                System.out.print(taquin.getInitialGrid().getSquare(i,j).getBlock().toString());
             }
             System.out.println();
         }
 
+         */
+
+        //System.out.println(taquin.getInitialGrid().isEqual(taquin.getFinalGrid()));
+
+        Graph graph = new Graph(taquin.getInitialGrid());
+
+        graph.breadthFirstTraversal(taquin.getFinalGrid());
+
+
+        /*
         for(int i = 0; i < nbRows; i++){
             for(int j = 0; j < nbColumns; j++){
                 for(CardinalDirection direction : CardinalDirection.values())
                     try {
                         System.out.println(initialGrid.getSquare(i,j).getBlock().toString() +
-                                direction.toString() + ": " + initialGrid.getSquare(i, j).getNeighbor(direction).getBlock());
+                                direction.toString() + ": " + initialGrid.getSquare(i, j).getNeighbor(direction).getBlock() +
+                                " >> " + initialGrid.getSquare(i, j).movable(direction));
+
                     }catch (Exception e){};
             }
         }
@@ -63,17 +71,11 @@ public class Main {
                 for(CardinalDirection direction : CardinalDirection.values())
                     try {
                         System.out.println(finalGrid.getSquare(i,j).getBlock().toString() +
-                                direction.toString() + ": " + finalGrid.getSquare(i, j).getNeighbor(direction).getBlock());
+                                direction.toString() + ": " + finalGrid.getSquare(i, j).getNeighbor(direction).getBlock() +
+                                " >> " + initialGrid.getSquare(i, j).movable(direction));
                     }catch (Exception e){};
             }
         }
          */
-        /*System.out.println(initialGrid.toString());
-        initialGrid.getSquare(2,0).move(CardinalDirection.EAST);
-        System.out.println(initialGrid);
-        initialGrid.getSquare(2,1).move((CardinalDirection.WEST));
-        System.out.println(initialGrid);*/
-        Graph graph=new Graph();
-        graph.stateGraph(initialGrid,finalGrid,0);
     }
 }

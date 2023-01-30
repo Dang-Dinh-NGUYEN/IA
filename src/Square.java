@@ -22,20 +22,22 @@ public class Square {
     public void setNeighbor(Square neighbor, CardinalDirection direction){
         neighbors[direction.ordinal()] = neighbor;
     }
+
+    public boolean hasNeighbor(CardinalDirection direction){
+        return getNeighbor(direction) != null;
+    }
+
+
     public Square getNeighbor(CardinalDirection direction) {
         return neighbors[direction.ordinal()];
     }
 
-    public boolean movable(CardinalDirection direction) throws NullPointerException{
-        return this.getNeighbor(direction).getBlock() == EmptyBlock.getInstance();
+    public Square[] getNeighbors() {
+        return neighbors;
     }
 
-    public boolean move(CardinalDirection cardinalDirection){
-        if(!this.movable(cardinalDirection))
-            return false;
-        this.getNeighbor(cardinalDirection).put(this.getBlock());
-        this.put(EmptyBlock.getInstance());
-        return true;
+    public boolean isEmpty() {
+        return this.getBlock().toString().equals(EmptyBlock.getInstance().toString());
     }
 
 }

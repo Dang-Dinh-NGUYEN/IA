@@ -10,7 +10,7 @@ public class Block {
     }
 
     public String toString(){
-        return this.getValue() + " ";
+        return String.valueOf(this.getValue());
     }
 
 }
