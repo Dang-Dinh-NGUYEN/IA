@@ -33,7 +33,7 @@ public class Grid implements Iterable<Square> {
         return this.squares[row][col];
     }
 
-    public void setSquare(int row, int col, Square square){
+    public void setSquares(int row, int col, Square square){
         this.squares[row][col] = square;
     }
 
@@ -53,7 +53,16 @@ public class Grid implements Iterable<Square> {
             i++;
         }
     }
-
+    public String toString(){
+        int i = 0;
+        String stringMat="";
+        for(Square square : this) {
+            String s= square.getBlock().getValue()+"";
+            stringMat+=s;
+            i++;
+        }
+        return stringMat;
+    }
     @Override
     public Iterator<Square> iterator() {
         return new SquareGridIterator(this);

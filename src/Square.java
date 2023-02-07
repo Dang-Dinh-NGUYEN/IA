@@ -22,8 +22,6 @@ public class Square {
     public void setNeighbor(Square neighbor, CardinalDirection direction){
         neighbors[direction.ordinal()] = neighbor;
     }
-
-
     public Square getNeighbor(CardinalDirection direction) {
         return neighbors[direction.ordinal()];
     }

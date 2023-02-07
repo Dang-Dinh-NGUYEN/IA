@@ -3,12 +3,12 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class BlockGenerator {
-    private final List<Block> initialBlocks = new ArrayList<>();
+    private final List<Block>  initialBlocks = new ArrayList<>();
     private final List<Block> finalBlocks = new ArrayList<>();
 
 
     public BlockGenerator(String filepath, int nbRows, int nbCols) throws FileNotFoundException {
-        Scanner input = new Scanner(new File(filepath));
+        Scanner input = new Scanner(new File("C:\\Users\\vikii\\IdeaProjects\\IA\\grilles\\grilles\\taquin_3x3.grid"));
         input.nextLine();
 
         for (int i = 0; i < nbRows; ++i) {
