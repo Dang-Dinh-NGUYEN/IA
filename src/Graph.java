@@ -54,7 +54,6 @@ public class Graph {
             Grid vertex = queue.poll();
             vertex.PrintGrid();
             if(vertex.isEqual(result)) {
-                System.out.println(visited.size());
                 return visited;
             }
             Square emptySquare = vertex.findEmptySquare();
@@ -64,10 +63,6 @@ public class Graph {
                     Grid clone = vertex.clone();
                     Square empty = clone.findEmptySquare();
                     clone.move(empty, cardinalDirection);
-                    //clone.PrintGrid();
-                    //System.out.println(clone.toString());
-
-                    //this.addEdge(vertex, clone);
                     addVertex(clone);
                     addEdge(vertex,clone);
                 }
@@ -80,15 +75,6 @@ public class Graph {
                 }
             }
 
-            /*
-            for(Grid grid : queue){
-                grid.PrintGrid();
-            }
-
-            adjVertices.entrySet().forEach(entry -> {
-                System.out.println(entry.getKey() + " " + entry.getValue());
-            });
-             */
         }
         return visited;
     }

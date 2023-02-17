@@ -41,10 +41,10 @@ public class Main {
         //System.out.println(taquin.getInitialGrid().isEqual(taquin.getFinalGrid()));
 
         Graph graph = new Graph(taquin.getInitialGrid());
-
+        //BFS bfs = new BFS(graph, taquin.getInitialGrid(), taquin.getFinalGrid());
+        //bfs.BFSHandler();
+        //System.out.println(bfs.isSolvable());
         graph.breadthFirstTraversal(taquin.getFinalGrid());
-
-
         /*
         for(int i = 0; i < nbRows; i++){
             for(int j = 0; j < nbColumns; j++){

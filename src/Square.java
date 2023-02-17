@@ -6,10 +6,7 @@ public class Square {
     private Block block;
     private final Square[] neighbors = new Square[CardinalDirection.NUMBER_OF_DIRECTIONS];
 
-    public Square(){
-        //this.block = EmptyBlock.getInstance();
-        //IntStream.range(0, neighbors.length).forEachOrdered(i -> neighbors[i] = EmptyBlock.getInstance());
-    }
+    public Square(){}
 
     public Block getBlock(){
         return this.block;
