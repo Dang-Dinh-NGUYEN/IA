@@ -11,12 +11,12 @@ public class BFS extends Algorithm{
     public void BFSHandler() {
         Set<String> visited = new LinkedHashSet<String>();
         Queue<Grid> queue = new LinkedList<Grid>();
-        queue.add(this.initialState);
-        visited.add(this.initialState.toString());
+        queue.add(super.initialState);
+        visited.add(super.initialState.toString());
         while (!queue.isEmpty()) {
             Grid vertex = queue.poll();
-            vertex.PrintGrid();
-            if(vertex.isEqual(finalState)) {
+            if(vertex.isEqual(super.finalState)) {
+                super.finalState = vertex;
                 return;
             }
             Square emptySquare = vertex.findEmptySquare();
@@ -26,14 +26,12 @@ public class BFS extends Algorithm{
                     Grid clone = vertex.clone();
                     Square empty = clone.findEmptySquare();
                     clone.move(empty, cardinalDirection);
-                    vertex.PrintGrid();
-                    clone.PrintGrid();
-                    this.graph.addVertex(clone);
-                    this.graph.addEdge(vertex,clone);
+                    super.graph.addVertex(clone);
+                    super.graph.addEdge(vertex,clone);
                 }
             }
 
-            for (Grid g : graph.getAdjVertices(vertex)) {
+            for (Grid g : super.graph.getAdjVertices(vertex)) {
                 if (!visited.contains(g.toString()) && !queue.contains(g)) {
                     visited.add(g.toString());
                     queue.add(g);
@@ -42,4 +40,5 @@ public class BFS extends Algorithm{
 
         }
     }
+
 }

@@ -24,7 +24,6 @@ public class Square {
         return getNeighbor(direction) != null;
     }
 
-
     public Square getNeighbor(CardinalDirection direction) {
         return neighbors[direction.ordinal()];
     }

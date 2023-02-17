@@ -89,8 +89,6 @@ public class Grid implements Iterable<Square>{
         return string;
     }
 
-
-
     public void PrintGrid(){
         for(int i = 0; i < this.getNbRows(); i++){
             for(int j = 0; j < this.getNbCols(); j++){
