@@ -2,7 +2,7 @@ public class EmptyBlock extends Block {
     private static EmptyBlock instance;
 
     private EmptyBlock(){
-        super('e');
+        super(' ');
     }
 
     public static EmptyBlock getInstance(){

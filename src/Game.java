@@ -36,7 +36,12 @@ public class Game {
         return finalGrid;
     }
 
-    public BlockGenerator getBlockGenerator(){
-        return blockGenerator;
+    public void solver(Algorithm algo){
+        long startTime = System.nanoTime();
+        algo.Handler();
+        long endTime = System.nanoTime();
+        System.out.println("running time: " + (endTime - startTime)/1000000000 + "s");
+        System.out.println(algo.hasSolution());
+        if(algo.hasSolution()) algo.printSolution();
     }
 }

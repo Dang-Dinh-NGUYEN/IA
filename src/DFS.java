@@ -1,22 +1,19 @@
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Set;
+import java.util.*;
 
-public class BFS extends Algorithm{
-    public BFS(Graph graph, Grid initialState, Grid finalState){
+public class DFS extends Algorithm{
+    public DFS(Graph graph, Grid initialState, Grid finalState){
         super(graph,initialState,finalState);
     }
-
-    public void Handler() {
+    @Override
+    void Handler() {
         Set<String> visited = new LinkedHashSet<String>();
-        Queue<Grid> queue = new LinkedList<Grid>();
-        queue.add(super.initialState);
+        Stack<Grid> stack = new Stack<Grid>();
+        stack.add(super.initialState);
         visited.add(super.initialState.toString());
-        while (!queue.isEmpty()) {
-            Grid vertex = queue.poll();
-            //System.out.println(queue.size());
+        while (!stack.isEmpty()) {
+            Grid vertex = stack.pop();
             //vertex.PrintGrid();
+            //System.out.println(stack.size());
             if(vertex.isEqual(super.finalState)) {
                 super.finalState = vertex;
                 super.hasSolution = true;
@@ -35,13 +32,12 @@ public class BFS extends Algorithm{
             }
 
             for (Grid g : super.graph.getAdjVertices(vertex)) {
-                if (!visited.contains(g.toString()) && !queue.contains(g)) {
+                if (!visited.contains(g.toString()) && !stack.contains(g)) {
                     visited.add(g.toString());
-                    queue.add(g);
+                    stack.add(g);
                 }
             }
 
         }
     }
-
 }

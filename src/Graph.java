@@ -32,6 +32,7 @@ public class Graph {
         adjVertices.get(grid1).add(grid2);
     }
 
+
     void removeEdge(Grid grid1, Grid grid2) {
         List<Grid> eV1 = adjVertices.get(grid1);
         List<Grid> eV2 = adjVertices.get(grid2);
@@ -45,37 +46,4 @@ public class Graph {
         return adjVertices.get(grid);
     }
 
-    public Set<String> breadthFirstTraversal(Grid result) {
-        Set<String> visited = new LinkedHashSet<String>();
-        Queue<Grid> queue = new LinkedList<Grid>();
-        queue.add(root);
-        visited.add(root.toString());
-        while (!queue.isEmpty()) {
-            Grid vertex = queue.poll();
-            vertex.PrintGrid();
-            if(vertex.isEqual(result)) {
-                return visited;
-            }
-            Square emptySquare = vertex.findEmptySquare();
-
-            for (CardinalDirection cardinalDirection : CardinalDirection.values()) {
-                if (emptySquare.hasNeighbor(cardinalDirection)) {
-                    Grid clone = vertex.clone();
-                    Square empty = clone.findEmptySquare();
-                    clone.move(empty, cardinalDirection);
-                    addVertex(clone);
-                    addEdge(vertex,clone);
-                }
-            }
-
-            for (Grid g : this.getAdjVertices(vertex)) {
-                if (!visited.contains(g.toString()) && !queue.contains(g)) {
-                    visited.add(g.toString());
-                    queue.add(g);
-                }
-            }
-
-        }
-        return visited;
-    }
 }
