@@ -35,8 +35,7 @@ public abstract class Algorithm {
         while(!path.isEmpty()) {
             Grid grid = path.pop();
             grid.PrintGrid();
-            System.out.println("Distance de Hamming: " + Heuristic1.getValue(grid,finalState));
-            System.out.println("Distance de Manhattan:" + Heuristic2.getValue(grid,finalState));
+            System.out.println("Heuristique: " + (Heuristic1.getValue(grid,finalState) + 3*Heuristic2.getValue(grid,finalState)));
             System.out.println();
         }
     }
