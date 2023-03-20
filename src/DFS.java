@@ -17,6 +17,7 @@ public class DFS extends Algorithm{
             if(vertex.isEqual(super.finalState)) {
                 super.finalState = vertex;
                 super.hasSolution = true;
+                System.out.println("explored " + visited.size() + " node.s");
                 return;
             }
             Square emptySquare = vertex.findEmptySquare();

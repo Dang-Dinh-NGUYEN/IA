@@ -18,6 +18,7 @@ public abstract class Algorithm {
         return hasSolution;
     }
 
+
     public void printSolution() {
         Stack<Grid> path = new Stack<>();
         Grid currentState = finalState;
@@ -27,12 +28,17 @@ public abstract class Algorithm {
                 if (entry.getValue().contains(currentState)) {
                     currentState = entry.getKey();
                     path.add(currentState);
-                    currentState.PrintGrid();
                 }
         }
-        System.out.println("solution path: ");
-        while(!path.isEmpty())
-            path.pop().PrintGrid();
+
+        System.out.println("solution path: " + path.size());
+        while(!path.isEmpty()) {
+            Grid grid = path.pop();
+            grid.PrintGrid();
+            System.out.println("Distance de Hamming: " + Heuristic1.getValue(grid,finalState));
+            System.out.println("Distance de Manhattan:" + Heuristic2.getValue(grid,finalState));
+            System.out.println();
+        }
     }
 
 }

@@ -32,7 +32,6 @@ public class Graph {
         adjVertices.get(grid1).add(grid2);
     }
 
-
     void removeEdge(Grid grid1, Grid grid2) {
         List<Grid> eV1 = adjVertices.get(grid1);
         List<Grid> eV2 = adjVertices.get(grid2);

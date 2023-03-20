@@ -15,9 +15,9 @@ public class BFS extends Algorithm{
         visited.add(super.initialState.toString());
         while (!queue.isEmpty()) {
             Grid vertex = queue.poll();
-            //System.out.println(queue.size());
-            //vertex.PrintGrid();
+
             if(vertex.isEqual(super.finalState)) {
+                System.out.println("visited: " + visited.size() + " node.s");
                 super.finalState = vertex;
                 super.hasSolution = true;
                 return;
