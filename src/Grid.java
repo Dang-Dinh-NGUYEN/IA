@@ -96,7 +96,6 @@ public class Grid implements Iterable<Square>{
             }
             System.out.println();
         }
-        System.out.println();
     }
 
 

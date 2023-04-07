@@ -1,18 +1,27 @@
-import java.util.*;
+import java.util.Comparator;
+import java.util.LinkedHashSet;
+import java.util.PriorityQueue;
+import java.util.Set;
 
-public class BFS extends Algorithm{
-    public BFS(Graph graph, Grid initialState, Grid finalState){
+public class BFSH extends Algorithm{
+    public BFSH(Graph graph, Grid initialState, Grid finalState){
         super(graph,initialState,finalState);
     }
 
     public void Handler() {
         Set<String> visited = new LinkedHashSet<String>();
-        Queue<Grid> queue = new LinkedList<Grid>();
+        PriorityQueue<Grid> priorityQueue = new PriorityQueue<>(new Comparator<Grid>() {
+            @Override
+            public int compare(Grid grid1, Grid grid2) {
+                return Heuristic1.getValue(grid1,finalState) + 3*Heuristic2.getValue(grid1,finalState) <
+                        Heuristic1.getValue(grid2,finalState) + 3*Heuristic2.getValue(grid2,finalState) ? 0:1;
+            }
+        });
 
-        queue.add(super.initialState);
+        priorityQueue.add(super.initialState);
         visited.add(super.initialState.toString());
-        while (!queue.isEmpty()) {
-            Grid vertex = queue.poll();
+        while (!priorityQueue.isEmpty()){
+            Grid vertex = priorityQueue.poll();
 
             if(vertex.isEqual(super.finalState)) {
                 super.finalState = vertex;
@@ -33,9 +42,9 @@ public class BFS extends Algorithm{
             }
 
             for (Grid g : super.graph.getAdjVertices(vertex)) {
-                if (!visited.contains(g.toString()) && !queue.contains(g)) {
+                if (!visited.contains(g.toString()) && !priorityQueue.contains(g)) {
                     visited.add(g.toString());
-                    queue.add(g);
+                    priorityQueue.add(g);
                 }
             }
         }
