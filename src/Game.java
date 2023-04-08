@@ -40,8 +40,8 @@ public class Game {
         long startTime = System.nanoTime();
         algo.Handler();
         long endTime = System.nanoTime();
-        System.out.println("running time: " + (endTime - startTime)/1000000000 + "s");
-        System.out.println(algo.hasSolution());
+        System.out.println("running time: " + (endTime - startTime)/1000000000.0 + "s");
+        System.out.println("grid resolvable: " + algo.hasSolution());
         if(algo.hasSolution()) algo.printSolution();
     }
 }

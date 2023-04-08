@@ -3,7 +3,7 @@ import java.util.*;
 public class Graph {
 
     private Map<Grid, List<Grid>> adjVertices;
-    private Grid root;
+    private final Grid root;
 
     public Graph(Grid root) {
         this.adjVertices = new HashMap<Grid, List<Grid>>();

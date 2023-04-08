@@ -5,6 +5,7 @@ public abstract class Algorithm {
     Grid finalState;
     Graph graph;
     boolean hasSolution = false;
+    Stack<Grid> path = new Stack<>();
 
     public Algorithm(Graph graph, Grid initialState, Grid finalState){
         this.graph = graph;
@@ -20,7 +21,16 @@ public abstract class Algorithm {
 
 
     public void printSolution() {
-        Stack<Grid> path = new Stack<>();
+        getSolutionPath();
+        while(!path.isEmpty()) {
+            Grid grid = path.pop();
+            grid.PrintGrid();
+            System.out.println("Heuristique: " + (Heuristic1.getValue(grid,finalState) + 3*Heuristic2.getValue(grid,finalState)));
+            System.out.println();
+        }
+    }
+
+    public void getSolutionPath(){
         Grid currentState = finalState;
         path.add(currentState);
         while (!currentState.isEqual(initialState)) {
@@ -30,14 +40,7 @@ public abstract class Algorithm {
                     path.add(currentState);
                 }
         }
-
         System.out.println("solution path: " + path.size());
-        while(!path.isEmpty()) {
-            Grid grid = path.pop();
-            grid.PrintGrid();
-            System.out.println("Heuristique: " + (Heuristic1.getValue(grid,finalState) + 3*Heuristic2.getValue(grid,finalState)));
-            System.out.println();
-        }
     }
 
 }

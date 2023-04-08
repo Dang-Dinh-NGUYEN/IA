@@ -36,18 +36,17 @@ public class BFSH extends Algorithm{
                     Grid clone = vertex.clone();
                     Square empty = clone.findEmptySquare();
                     clone.move(empty, cardinalDirection);
-                    super.graph.addVertex(clone);
-                    super.graph.addEdge(vertex,clone);
+                    if (!visited.contains(clone.toString()) && !priorityQueue.contains(clone)) {
+                        super.graph.addVertex(clone);
+                        super.graph.addEdge(vertex, clone);
+                        priorityQueue.add(clone);
+                    }
                 }
             }
+            visited.add(vertex.toString());
 
-            for (Grid g : super.graph.getAdjVertices(vertex)) {
-                if (!visited.contains(g.toString()) && !priorityQueue.contains(g)) {
-                    visited.add(g.toString());
-                    priorityQueue.add(g);
-                }
-            }
         }
+
     }
 
 }

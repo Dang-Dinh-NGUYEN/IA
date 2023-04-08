@@ -4,6 +4,7 @@ public class DFS extends Algorithm{
     public DFS(Graph graph, Grid initialState, Grid finalState){
         super(graph,initialState,finalState);
     }
+
     @Override
     void Handler() {
         Set<String> visited = new LinkedHashSet<String>();
@@ -12,8 +13,7 @@ public class DFS extends Algorithm{
         visited.add(super.initialState.toString());
         while (!stack.isEmpty()) {
             Grid vertex = stack.pop();
-            //vertex.PrintGrid();
-            //System.out.println(stack.size());
+
             if(vertex.isEqual(super.finalState)) {
                 super.finalState = vertex;
                 super.hasSolution = true;
@@ -27,18 +27,17 @@ public class DFS extends Algorithm{
                     Grid clone = vertex.clone();
                     Square empty = clone.findEmptySquare();
                     clone.move(empty, cardinalDirection);
-                    super.graph.addVertex(clone);
-                    super.graph.addEdge(vertex,clone);
+                    if (!visited.contains(clone.toString()) && !stack.contains(clone)) {
+                        super.graph.addVertex(clone);
+                        super.graph.addEdge(vertex, clone);
+                        stack.add(clone);
+                    }
                 }
             }
-
-            for (Grid g : super.graph.getAdjVertices(vertex)) {
-                if (!visited.contains(g.toString()) && !stack.contains(g)) {
-                    visited.add(g.toString());
-                    stack.add(g);
-                }
-            }
+            visited.add(vertex.toString());
 
         }
+
     }
+
 }

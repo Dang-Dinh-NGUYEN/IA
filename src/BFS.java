@@ -27,18 +27,18 @@ public class BFS extends Algorithm{
                     Grid clone = vertex.clone();
                     Square empty = clone.findEmptySquare();
                     clone.move(empty, cardinalDirection);
-                    super.graph.addVertex(clone);
-                    super.graph.addEdge(vertex,clone);
-                }
-            }
 
-            for (Grid g : super.graph.getAdjVertices(vertex)) {
-                if (!visited.contains(g.toString()) && !queue.contains(g)) {
-                    visited.add(g.toString());
-                    queue.add(g);
+                    if (!visited.contains(clone.toString()) && !queue.contains(clone)) {
+                        super.graph.addVertex(clone);
+                        super.graph.addEdge(vertex, clone);
+                        queue.add(clone);
+                    }
                 }
             }
+            visited.add(vertex.toString());
+
         }
+
     }
 
 }
