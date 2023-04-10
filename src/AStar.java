@@ -1,7 +1,7 @@
 import java.util.*;
 
-public class DFS_Heuristic extends Algorithm {
-    public DFS_Heuristic(Graph graph, Grid initialState, Grid finalState) {
+public class AStar extends Algorithm {
+    public AStar(Graph graph, Grid initialState, Grid finalState) {
         super(graph, initialState, finalState);
     }
 

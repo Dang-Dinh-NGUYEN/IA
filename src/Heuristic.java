@@ -1,1 +1,3 @@
-public interface Heuristic {}
+public interface Heuristic {
+
+}

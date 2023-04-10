@@ -8,8 +8,7 @@ public class DFSH extends Algorithm{
         // pop elements from the stack and push them onto a temporary stack
         Stack<Grid> tempStack = new Stack<>();
         while (!stack.isEmpty() &&
-                (Heuristic1.getValue(stack.peek(),finalState) + 3*Heuristic2.getValue(stack.peek(),finalState)) <
-                        Heuristic1.getValue(grid,finalState) + 3*Heuristic2.getValue(grid,finalState)) {
+                (Heuristic3.getValue(stack.peek(),finalState) < Heuristic3.getValue(grid,finalState))) {
             tempStack.push(stack.pop());
         }
         // Push the new value onto the stack
@@ -23,17 +22,19 @@ public class DFSH extends Algorithm{
     public Grid pop() {
         return stack.pop();
     }
+
     public DFSH(Graph graph, Grid initialState, Grid finalState){
         super(graph,initialState,finalState);
     }
+
     @Override
     void Handler() {
-        Set<String> visited = new LinkedHashSet<String>();
         stack.add(super.initialState);
         visited.add(super.initialState.toString());
 
         while (!stack.isEmpty()) {
             Grid vertex = stack.pop();
+
             if(vertex.isEqual(super.finalState)) {
                 super.finalState = vertex;
                 super.hasSolution = true;
@@ -41,6 +42,10 @@ public class DFSH extends Algorithm{
                 return;
             }
             Square emptySquare = vertex.findEmptySquare();
+            System.out.println("CurentState: ");
+            vertex.PrintGrid();
+            System.out.println(Heuristic3.getValue(vertex,finalState));
+            System.out.println("Exploring states: ");
 
             for (CardinalDirection cardinalDirection : CardinalDirection.values()) {
                 if (emptySquare.hasNeighbor(cardinalDirection)) {
@@ -51,9 +56,13 @@ public class DFSH extends Algorithm{
                         super.graph.addVertex(clone);
                         super.graph.addEdge(vertex, clone);
                         push(clone);
+                        clone.PrintGrid();
+                        System.out.println(Heuristic3.getValue(clone,finalState));
+                        System.out.println();
                     }
                 }
             }
+            System.out.println("-------------------------------------------------------");
             visited.add(vertex.toString());
 
         }

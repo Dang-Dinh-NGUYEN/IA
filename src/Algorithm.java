@@ -6,6 +6,8 @@ public abstract class Algorithm {
     Graph graph;
     boolean hasSolution = false;
     Stack<Grid> path = new Stack<>();
+    Set<String> visited = new LinkedHashSet<String>();
+
 
     public Algorithm(Graph graph, Grid initialState, Grid finalState){
         this.graph = graph;
@@ -18,7 +20,6 @@ public abstract class Algorithm {
     public boolean hasSolution(){
         return hasSolution;
     }
-
 
     public void printSolution() {
         getSolutionPath();

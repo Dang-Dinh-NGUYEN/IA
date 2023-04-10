@@ -109,6 +109,10 @@ public class Grid implements Iterable<Square>{
         return true;
     }
 
+    public boolean isEqual(String gridID) {
+        return this.toString().equals(gridID);
+    }
+
     public Square findEmptySquare(){
         for (int i = 0; i < this.getNbRows(); i++) {
             for (int j = 0; j < this.getNbCols(); j++) {

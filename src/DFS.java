@@ -1,42 +1,43 @@
 import java.util.*;
 
 public class DFS extends Algorithm{
+    Stack<Grid> stack = new Stack<Grid>();
+
     public DFS(Graph graph, Grid initialState, Grid finalState){
         super(graph,initialState,finalState);
     }
 
     @Override
     void Handler() {
-        Set<String> visited = new LinkedHashSet<String>();
-        Stack<Grid> stack = new Stack<Grid>();
-        stack.add(super.initialState);
-        visited.add(super.initialState.toString());
+        stack.push(super.initialState);
+
         while (!stack.isEmpty()) {
-            Grid vertex = stack.pop();
+            Grid currentState = stack.pop();
 
-            if(vertex.isEqual(super.finalState)) {
-                super.finalState = vertex;
-                super.hasSolution = true;
-                System.out.println("explored " + visited.size() + " node.s");
-                return;
-            }
-            Square emptySquare = vertex.findEmptySquare();
+            if(!visited.contains(currentState.toString())) {
+                if (currentState.isEqual(super.finalState)) {
+                    super.finalState = currentState;
+                    super.hasSolution = true;
+                    break;
+                }
+                Square emptySquare = currentState.findEmptySquare();
 
-            for (CardinalDirection cardinalDirection : CardinalDirection.values()) {
-                if (emptySquare.hasNeighbor(cardinalDirection)) {
-                    Grid clone = vertex.clone();
-                    Square empty = clone.findEmptySquare();
-                    clone.move(empty, cardinalDirection);
-                    if (!visited.contains(clone.toString()) && !stack.contains(clone)) {
-                        super.graph.addVertex(clone);
-                        super.graph.addEdge(vertex, clone);
-                        stack.add(clone);
+                for (CardinalDirection cardinalDirection : CardinalDirection.values()) {
+                    if (emptySquare.hasNeighbor(cardinalDirection)) {
+                        Grid nextState = currentState.clone();
+                        Square empty = nextState.findEmptySquare();
+                        nextState.move(empty, cardinalDirection);
+                        if (!visited.contains(nextState.toString())) {
+                            super.graph.addVertex(nextState);
+                            super.graph.addEdge(currentState, nextState);
+                            stack.push(nextState);
+                        }
                     }
                 }
+                visited.add(currentState.toString());
             }
-            visited.add(vertex.toString());
-
         }
+        System.out.println("explored " + visited.size() + " node.s");
 
     }
 

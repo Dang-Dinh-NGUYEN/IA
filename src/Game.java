@@ -14,15 +14,15 @@ public class Game {
         int nbRows = input.nextInt();
 
         int nbColumns = 0;
-        for(int i = 0; i < nbRows; i++)
-            if(input.nextLine().length() > nbColumns)
-                nbColumns = input.nextLine().length();
-
+        for(int i = 0; i < nbRows + 1; i++) {
+            String str = input.nextLine();
+            if ( str.length() > nbColumns)
+                nbColumns = str.length();
+        }
         input.close();
-
         initialGrid = new Grid(nbRows,nbColumns);
         finalGrid = new Grid(nbRows,nbColumns);
-        this.blockGenerator = new BlockGenerator(filepath,nbRows,nbColumns);
+        this.blockGenerator = new BlockGenerator(filepath, nbRows, nbColumns);
 
         initialGrid.fill(blockGenerator.getInitialBlocks());
         finalGrid.fill(blockGenerator.getFinalBlocks());
@@ -42,6 +42,6 @@ public class Game {
         long endTime = System.nanoTime();
         System.out.println("running time: " + (endTime - startTime)/1000000000.0 + "s");
         System.out.println("grid resolvable: " + algo.hasSolution());
-        if(algo.hasSolution()) algo.printSolution();
+        //if(algo.hasSolution()) algo.printSolution();
     }
 }

@@ -9,43 +9,51 @@ public class BFSH extends Algorithm{
     }
 
     public void Handler() {
-        Set<String> visited = new LinkedHashSet<String>();
         PriorityQueue<Grid> priorityQueue = new PriorityQueue<>(new Comparator<Grid>() {
             @Override
             public int compare(Grid grid1, Grid grid2) {
-                return Heuristic1.getValue(grid1,finalState) + 3*Heuristic2.getValue(grid1,finalState) <
-                        Heuristic1.getValue(grid2,finalState) + 3*Heuristic2.getValue(grid2,finalState) ? 0:1;
+                return Heuristic3.getValue(grid1,finalState) < Heuristic3.getValue(grid2,finalState) ? 0:1;
             }
         });
 
-        priorityQueue.add(super.initialState);
-        visited.add(super.initialState.toString());
+        priorityQueue.offer(super.initialState);
+
         while (!priorityQueue.isEmpty()){
-            Grid vertex = priorityQueue.poll();
+            Grid currentState = priorityQueue.poll();
 
-            if(vertex.isEqual(super.finalState)) {
-                super.finalState = vertex;
-                super.hasSolution = true;
-                System.out.println("explored: " + visited.size() + " node.s");
-                return;
-            }
-            Square emptySquare = vertex.findEmptySquare();
+            if(!visited.contains(currentState.toString())) {
+                System.out.println("CurentState: ");
+                currentState.PrintGrid();
+                System.out.println(Heuristic3.getValue(currentState,finalState));
+                System.out.println("Exploring states: ");
+                if (currentState.isEqual(super.finalState)) {
+                    super.finalState = currentState;
+                    super.hasSolution = true;
+                    break;
+                }
+                Square emptySquare = currentState.findEmptySquare();
 
-            for (CardinalDirection cardinalDirection : CardinalDirection.values()) {
-                if (emptySquare.hasNeighbor(cardinalDirection)) {
-                    Grid clone = vertex.clone();
-                    Square empty = clone.findEmptySquare();
-                    clone.move(empty, cardinalDirection);
-                    if (!visited.contains(clone.toString()) && !priorityQueue.contains(clone)) {
-                        super.graph.addVertex(clone);
-                        super.graph.addEdge(vertex, clone);
-                        priorityQueue.add(clone);
+                for (CardinalDirection cardinalDirection : CardinalDirection.values()) {
+                    if (emptySquare.hasNeighbor(cardinalDirection)) {
+                        Grid nextState = currentState.clone();
+                        Square empty = nextState.findEmptySquare();
+                        nextState.move(empty, cardinalDirection);
+
+                        if (!visited.contains(nextState.toString())) {
+                            super.graph.addVertex(nextState);
+                            super.graph.addEdge(currentState, nextState);
+                            priorityQueue.offer(nextState);
+                            nextState.PrintGrid();
+                            System.out.println(Heuristic3.getValue(nextState,finalState));
+                            System.out.println();
+                        }
                     }
                 }
+                System.out.println("-------------------------------------------------------");
+                visited.add(currentState.toString());
             }
-            visited.add(vertex.toString());
-
         }
+        System.out.println("explored: " + visited.size() + " node.s");
 
     }
 
