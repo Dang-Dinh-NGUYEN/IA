@@ -1,28 +1,40 @@
 import java.util.*;
 
-public class DFSH extends Algorithm{
-    Stack<Grid> stack = new Stack<Grid>();
-    PriorityQueue<Grid> priorityQueue = new PriorityQueue<>(new Comparator<Grid>() {
-        @Override
-        public int compare(Grid grid1, Grid grid2) {
-            int h1 = Heuristic3.getValue(grid1, finalState);
-            int h2 = Heuristic3.getValue(grid2, finalState);
-            return Integer.compare(h2, h1);
-        }
-    });
+public class Greedy extends Algorithm{
+    Stack<Grid> stack = new Stack<>();
 
-    public DFSH(Graph graph, Grid initialState, Grid finalState){
+    public void push(Grid grid) {
+        // While the stack is not empty and the top element is greater than the new value,
+        // pop elements from the stack and push them onto a temporary stack
+        Stack<Grid> tempStack = new Stack<>();
+        while (!stack.isEmpty() &&
+                (Heuristic3.getValue(stack.peek(),finalState) < Heuristic3.getValue(grid,finalState))) {
+            tempStack.push(stack.pop());
+        }
+        // Push the new value onto the stack
+        stack.push(grid);
+        // Push the elements from the temporary stack back onto the original stack
+        while (!tempStack.isEmpty()) {
+            stack.push(tempStack.pop());
+        }
+    }
+
+    public Grid pop() {
+        return stack.pop();
+    }
+
+    public Greedy(Graph graph, Grid initialState, Grid finalState){
         super(graph,initialState,finalState);
     }
 
     @Override
     void Handler() {
-        stack.push(super.initialState);
+        stack.add(super.initialState);
 
         while (!stack.isEmpty()) {
             Grid currentState = stack.pop();
 
-            if(!visited.contains(currentState.toString())) {
+            if (!visited.contains(currentState.toString())) {
                 if (currentState.isEqual(super.finalState)) {
                     super.finalState = currentState;
                     super.hasSolution = true;
@@ -45,7 +57,7 @@ public class DFSH extends Algorithm{
                         if (!visited.contains(nextState.toString())) {
                             super.graph.addVertex(nextState);
                             super.graph.addEdge(currentState, nextState);
-                            priorityQueue.offer(nextState);
+                            push(nextState);
 
                             /*
                             nextState.PrintGrid();
@@ -56,12 +68,10 @@ public class DFSH extends Algorithm{
                         }
                     }
                 }
-                while (!priorityQueue.isEmpty())
-                    stack.push(priorityQueue.poll());
 
                 /*
                 System.out.println("-------------------------------------------------------");
-                */
+                 */
 
                 visited.add(currentState.toString());
             }

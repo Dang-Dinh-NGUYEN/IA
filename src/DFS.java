@@ -38,7 +38,6 @@ public class DFS extends Algorithm{
             }
         }
         System.out.println("explored " + visited.size() + " node.s");
-
     }
 
 }

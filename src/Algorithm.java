@@ -41,7 +41,7 @@ public abstract class Algorithm {
                     path.add(currentState);
                 }
         }
-        System.out.println("solution path: " + path.size());
+        System.out.println("solution path: " + (path.size() - 2));
     }
 
 }

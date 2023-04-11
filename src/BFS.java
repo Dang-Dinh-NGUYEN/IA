@@ -36,10 +36,8 @@ public class BFS extends Algorithm{
                 }
                 visited.add(currentState.toString());
             }
-
         }
         System.out.println("explored: " + visited.size() + " node.s");
-
     }
 
 }
